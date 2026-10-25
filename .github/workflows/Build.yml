@@ -11,28 +11,27 @@ jobs:
     - name: Checkout Source Code
       uses: actions/checkout@v4.2.2
 
-    - name: Set up JDK 17
+    - name: Set up JDK 21
       uses: actions/setup-java@v4.5.0
       with:
-        distribution: 'temurin'
-        java-version: '17'
-        cache: 'gradle'
+        distribution: 'zulu' # Highly stable JDK distribution for modern Kotlin DSL
+        java-version: '21'   # Upgraded to 21, required by newer .kts Android projects
 
     - name: Ensure Gradle Wrapper Exists
       run: |
         if [ ! -f gradlew ]; then
-          echo "gradlew not found in root. Generating a new wrapper..."
           gradle wrapper
         fi
         chmod +x gradlew
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug --no-daemon --stacktrace
 
     - name: Upload APK Artifact
+      if: success()
       uses: actions/upload-artifact@v4.6.0
       with:
-        name: voxtts-debug-apk
+        name: voxtts-apk
         path: |
           **/build/outputs/apk/debug/*.apk
           
