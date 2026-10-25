@@ -1,0 +1,6 @@
+{
+  "name": "VoxCraft TTS",
+  "description": "Advanced multilingual text-to-speech studio with Gemini neural voices, custom tone styles, offline playback, and user profiles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
